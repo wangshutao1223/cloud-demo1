@@ -1,0 +1,60 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: zuul-server
+#zuul:
+#  routes:
+#    haha:
+#      path: /user-service/**
+#      url: http://localhost:8889
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5 # 获取服务列表的周期：5s
+  instance:
+    prefer-ip-address: true # 当调用getHostname获取实例的hostname时，返回ip而不是host名称
+    ip-address: 127.0.0.1 # 指定自己的ip信息，不指定的话会自己寻找
+
+#zuul:
+#  routes:
+#    haha:  #路由ID
+#      path: /user-service/**
+#      serviceId: user-service  #微服务ID
+      #http://localhost:9999/user-service/user/id
+      #http://user-service/user/id
+      #http://127.0.0.1:8889/user/id
+
+
+#zuul:
+#  routes:
+#    user-service: /user-service/**  #浏览器对应服务
+#  ignored-services: #不暴露IP
+#    - customer-service
+    #http:localhost:9999/user-service/user/1
+    #http:localhost:9999/customer-service/customer/1
+zuul:
+  routes:
+    user-service:
+      path: /user/**
+      serviceId: user-service
+      strip-prefix: false #不截取/user
+  prefix: /api
+#http://http://localhost:9999/user/1
+#http://http://localhost:9999/api/user/1
+
+
+#day0315
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 6000 # 熔断超时时长：6000ms
+#day0315
+ribbon:
+  ConnectionTimeOut: 500 # 连接超时时间(ms)
+  ReadTimeOut: 4000 # 通信超时时间(ms)
+  MaxAutoRetriesNextServer: 2 # 同一服务不同实例的重试次数

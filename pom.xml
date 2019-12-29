@@ -12,6 +12,7 @@
         <module>user-service</module>
         <module>customer-demo</module>
         <module>Eureka-Server</module>
+        <module>zuul-demo</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
